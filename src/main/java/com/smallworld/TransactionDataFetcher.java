@@ -1,6 +1,6 @@
 package com.smallworld;
 
-import com.smallworld.data.Transaction;
+import com.smallworld.model.Transaction;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -8,11 +8,20 @@ import java.util.Set;
 
 public class TransactionDataFetcher {
 
+
+    private List<Transaction> transactions;
+
+    public TransactionDataFetcher(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
     /**
      * Returns the sum of the amounts of all transactions
      */
     public double getTotalTransactionAmount() {
-        throw new UnsupportedOperationException();
+        return transactions.stream()
+                .mapToDouble(Transaction::getAmount)
+                .sum();
     }
 
     /**
