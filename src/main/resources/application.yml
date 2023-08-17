@@ -4,7 +4,3 @@ server:
 file:
   json:
     location: src/main/resources/transactions.json
-
-
-
-
