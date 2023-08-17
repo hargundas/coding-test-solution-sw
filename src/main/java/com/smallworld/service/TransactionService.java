@@ -12,4 +12,7 @@ public interface TransactionService {
     double getTotalTransactionAmountSentBy(String senderFullName);
     double getMaxTransactionAmount();
     List<Transaction> getTop3TransactionsByAmount();
+
+    //FOR SETTING THE TRANSACTIONS
+    void setTransactions(List<Transaction> transactions);
 }

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -27,8 +26,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public long countUniqueClients() {
         List<Transaction> transactions = transactionService.getAllTransaction();
+
         return transactions.stream()
-                .flatMap(transaction -> Stream.of(transaction.getSenderFullName(), transaction.getBeneficiaryFullName()))
+                .map(Transaction::getSenderFullName)
                 .distinct()
                 .count();
     }

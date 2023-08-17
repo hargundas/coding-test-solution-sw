@@ -33,7 +33,6 @@ public class TransactionServiceImpl implements TransactionService {
             getAllTransactions();
             log.info("file loaded successfully");
         } catch (IOException e) {
-            log.error("Error while loading file", e);
             throw new FileLoadException("Error while loading file", e);
         }
     }
@@ -46,6 +45,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Map<String, List<Transaction>> getTransactionsByBeneficiaryName() {
+        if(transactions.isEmpty())
+            return Map.of();
+
         return transactions.stream()
                 .collect(Collectors.groupingBy(Transaction::getBeneficiaryFullName));
     }
@@ -80,11 +82,17 @@ public class TransactionServiceImpl implements TransactionService {
                 .limit(3).toList();
     }
 
+    @Override
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
     private void getAllTransactions() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(jsonFileLocation);
         transactions = mapper.readValue(file, new TypeReference<>() {});
     }
+
 
 
 
