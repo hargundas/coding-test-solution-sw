@@ -1,3 +1,10 @@
 server:
   port: 9090
 
+file:
+  json:
+    location: src/main/resources/transactions.json
+
+
+
+
